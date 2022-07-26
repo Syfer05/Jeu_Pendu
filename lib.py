@@ -20,8 +20,36 @@ def get_word(niveau):
     return mot
 
 
-def display(word):
-    print("Ecran 16/9")
+def display(lettre,terme):
+    end = ""
+    tour = ""
+    longueur = len(terme)
+
+    liste = list(terme)
+    soluce3 = []
+
+    for x in range(longueur):
+        soluce3.append("_")
+    print(soluce3)
+
+    v = 0
+    for x in liste:
+
+        if lettre == x:
+            print(v)
+            soluce3[v] = lettre
+        v += 1
+    print(soluce3)
+    if soluce3 == terme:
+        end = "win"
+        return end
+    elif tour == 0:
+        end = "lose"
+        return end
+    else:
+        end = ''.join(soluce3)
+        return end
+
 
 """
 def dico(letter, word):
@@ -50,12 +78,21 @@ def print_menu():
         ###word=get_word(level) # Appel de la fonction get_word avec paramétre level
         word = get_word(level)
         print("Le mot c'est:", word)
-        fin = display(word)
+        ### Appel de la Function -> display()
+        letter = input("Entre ta lettre\n")
+        fin = display(letter,word)
+        print(fin)
+        if fin == "win":
+            print("Bravo")
+        elif fin == "lose":
+            print("loser")
+        else:
+            ######A finir fin = display(letter, word)
     else:
         print("No Game!")
         exit()
 
-    ### Appel de la Function -> display()
+
     ###display(word) # Lancement du jeu sur le à deviner
     """lettre = input(deviner)
 
