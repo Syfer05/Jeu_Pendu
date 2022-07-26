@@ -1,8 +1,10 @@
 import random
-life = 10
+essais = 10
+lifes = essais
+
 def get_word(niveau):
-    # Le dictionnaire(apperemment un dico doit avoir une unicité dans ses clés, du coup j'ai inversé key & value)
-    dico = {
+    # Le dictionnaire(apparemment un dico doit avoir une unicité dans ses clés, du coup j'ai inversé key & value)
+    dico_a = {
         "lait": 1,
         "pour": 1,
         "flamme": 2,
@@ -12,62 +14,55 @@ def get_word(niveau):
     }
     # Création d'un nouveau dictionnaire contenant uniquement des clés et valeurs,
     # pour lesquelles la valeur est égale au niveau choisi par le joueur
-    d = {}
-    for key, value in dico.items():
+    dico_b = {}
+    for key, value in dico_a.items():
         if value == int(niveau):
-            d[key] = value
-    #print(d)
+            dico_b[key] = value
     # choix d'un mot du dico grace à la méthode random
-    #print(niveau)
-    #print(random.choice(list(d.keys())))
-    mot = random.choice(list(d.keys()))
+    mot = random.choice(list(dico_b.keys()))
     return mot
 
 
 def display(lettre,terme,evolution):
-    end = ""
     longueur = len(terme)
-
     liste = list(terme)
-    soluce3 = []
+    traits = []
 
     if evolution == "":
         for x in range(longueur):
-            soluce3.append("_")
-        print(soluce3)
+            traits.append("_")
+        print(traits)
     else:
-        soluce3 = list(evolution)
-        lettre = input("Entre ta lettre\n")
+        traits = list(evolution)
+        lettre = input("Entrez votre lettre:\n")
 
-    ultimo= match_word(liste,lettre,soluce3,terme)
+    ultimo = match_word(liste,lettre,traits,terme)
     print(ultimo)
     return ultimo
 
 
 def match_word(suite, caractere, evo, chaine):
-    global life
+    global lifes
     #fonction de vérification des conditions suivantes:
     # nombre de tentatives restantes
     # la lettre proposée est-elle dans le mot?
     v = 0
     if caractere in suite:
         for x in suite:
-
             if caractere == x:
                 print(v)
                 evo[v] = caractere
-
             v += 1
     else:
-        print("Lettre non incluse dans mot!")
-        life-=1
-    print(life)
+        print("Lettre proposée non incluse dans le mot!")
+        lifes -= 1
+    print(lifes)
     print(evo, list(chaine))
     # renvoi d'une valeur "win", "lose" ou "les lettres actuellement découvertes"
     if evo == list(chaine):
         end = "win"
         return end
-    elif life == 0:
+    elif lifes == 0:
         end = "lose"
         return end
     else:
@@ -76,38 +71,27 @@ def match_word(suite, caractere, evo, chaine):
 
 
 def print_menu():
-    life = 10
-    word=""
-    fin=""
     welcome_message = "Bienvenue sur le jeu du pendu!"
     difficulty = "Veuillez choisir votre niveau de difficulté!\n 1:Easy \n 2:Normal \n 3:Hard \n q:Quit \n"
     win = "Bravo vous avez remporté la victoire et découvert le mot x en x tentatives"
     fail = "Désolé de cet échec, le mot à découvrir était : x"
     again = "Souhaitez-vous refaire une partie? (O)ui ou (N)on \n"
-    deviner = "Veuillez entre une lettre"
+    deviner = "Veuillez entrer une lettre"
     lettre = ""
     print(welcome_message)
     level = input(difficulty) # Demander au joueur de choisir le level de difficulté
-    #print(level)
 
 
     ### Appel de la Function -> get_word()
     if level not in 'qQ':
-        fin=""
+        fin = ""
         ###word=get_word(level) # Appel de la fonction get_word avec paramétre level
         word = get_word(level)
         print("Le mot c'est:", word)
         ### Appel de la Function -> display()
-        letter = input("Entre ta lettre\n")
-        #fin = display(letter,word)
+        letter = input("Entre ta lettre:\n")
         fin = display(letter, word, fin)
         print(fin)
-        """if fin == "win":
-            print("Bravo")
-        elif fin == "lose":
-            print("loser")
-        else:
-            display(letter,word,fin)"""
 
         while not (fin == "win") and not (fin == "lose"):
             fin = display(letter, word, fin)
@@ -121,22 +105,13 @@ def print_menu():
         exit()
 
 
-    ###display(word) # Lancement du jeu sur le à deviner
-    """lettre = input(deviner)
+    stop_or_continue = input(again) # Demander au joueur s'il veux rejouer ou quitter
 
-    def la_lettre
-    if len(lettre) == 1:
-        print("The letter is", lettre)
-    else:
-        print("No Game!")
-    """
-    ### Appel de la Function -> dico()
-
-
-    stop_continue = input(again) # Demander au joueur s'il veux rejouer ou quitter
-
-    if stop_continue in 'oO':
+    if stop_or_continue in 'oO':
+        global lifes
+        global essais
+        lifes = essais
         print_menu()
-    elif stop_continue in 'nN':
+    elif stop_or_continue in 'nN':
         print("Adieu")
         exit()# Sortie du programme
