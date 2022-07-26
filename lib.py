@@ -1,4 +1,5 @@
 import random
+life = 10
 def get_word(niveau):
     # Le dictionnaire(apperemment un dico doit avoir une unicité dans ses clés, du coup j'ai inversé key & value)
     dico = {
@@ -25,7 +26,6 @@ def get_word(niveau):
 
 def display(lettre,terme,evolution):
     end = ""
-    tour = ""
     longueur = len(terme)
 
     liste = list(terme)
@@ -45,23 +45,29 @@ def display(lettre,terme,evolution):
 
 
 def match_word(suite, caractere, evo, chaine):
+    global life
     #fonction de vérification des conditions suivantes:
     # nombre de tentatives restantes
     # la lettre proposée est-elle dans le mot?
-    tour=10
     v = 0
-    for x in suite:
+    if caractere in suite:
+        for x in suite:
 
-        if caractere == x:
-            print(v)
-            evo[v] = caractere
-        v += 1
+            if caractere == x:
+                print(v)
+                evo[v] = caractere
+
+            v += 1
+    else:
+        print("Lettre non incluse dans mot!")
+        life-=1
+    print(life)
     print(evo, list(chaine))
     # renvoi d'une valeur "win", "lose" ou "les lettres actuellement découvertes"
     if evo == list(chaine):
         end = "win"
         return end
-    elif tour == 0:
+    elif life == 0:
         end = "lose"
         return end
     else:
@@ -70,6 +76,7 @@ def match_word(suite, caractere, evo, chaine):
 
 
 def print_menu():
+    life = 10
     word=""
     fin=""
     welcome_message = "Bienvenue sur le jeu du pendu!"
