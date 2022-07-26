@@ -1,6 +1,6 @@
 import random
 def get_word(niveau):
-    dict = {
+    dico = {
         "lait": 1,
         "pour": 1,
         "flamme": 2,
@@ -9,24 +9,21 @@ def get_word(niveau):
         "allumette": 3
     }
     d = {}
-    for key, value in dict.items():
+    for key, value in dico.items():
         if value == int(niveau):
             d[key] = value
     #print(d)
     # choix du mot grace à la valeur random
-    print(niveau)
-    print(random.choice(list(d.keys())))
-    mot = "chaise"
-    dico = {}
+    #print(niveau)
+    #print(random.choice(list(d.keys())))
+    mot = random.choice(list(d.keys()))
     return mot
 
-"""
+
 def display(word):
-    {
+    print("Ecran 16/9")
 
-    }
-
-
+"""
 def dico(letter, word):
     {
 
@@ -35,6 +32,7 @@ def dico(letter, word):
 """
 def print_menu():
     word=""
+    fin=""
     welcome_message = "Bienvenue sur le jeu du pendu!"
     difficulty = "Veuillez choisir votre niveau de difficulté!\n 1:Easy \n 2:Normal \n 3:Hard \n q:Quit \n"
     win = "Bravo vous avez remporté la victoire et découvert le mot x en x tentatives"
@@ -50,9 +48,9 @@ def print_menu():
     ### Appel de la Function -> get_word()
     if level not in 'qQ':
         ###word=get_word(level) # Appel de la fonction get_word avec paramétre level
-        print("Go Game!")
         word = get_word(level)
-        print(word)
+        print("Le mot c'est:", word)
+        fin = display(word)
     else:
         print("No Game!")
         exit()
