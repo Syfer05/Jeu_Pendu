@@ -5,12 +5,9 @@ lifes = essais  # Variable évolutive désigne le nombre de tentative restante
 def get_word(niveau):
     # Le dictionnaire(apparemment un dico doit avoir une unicité dans ses clés, du coup j'ai inversé key & value)
     dico_a = {
-        "lait": 3,
-        "pour": 3,
-        "flamme": 2,
-        "positif": 2,
-        "terminaison": 1,
-        "allumette": 1
+        "lait": 3, "pour": 3,
+        "flamme": 2, "positif": 2,
+        "terminaison": 1, "allumette": 1
     }
 
     # Création d'un nouveau dictionnaire contenant uniquement des clés et valeurs,
@@ -25,20 +22,20 @@ def get_word(niveau):
     return mot
 
 
-def display(lettre,terme,evolution):
+def display(lettre, terme, evolution):
+    devine = "Entrez votre lettre:\n"
     #longueur = len(terme)
     liste = list(terme)
     traits = []
-# Need correction
-    if evolution == "":
+
+    if evolution == "":  # Si mon evolution de lettres est vide, je remplie la liste traits avec x underscore
         for x in range(len(terme)):
             traits.append("_")
-        #print(traits)
     else:
-        traits = list(evolution)
-        lettre = input("Entrez votre lettre:\n")
-# Need correction
-    ultimo = match_word(liste,lettre,traits,terme)
+        traits = list(evolution)  #Passage en liste de mon evolution de lettres
+        lettre = input(devine)
+
+    ultimo = match_word(liste, lettre, traits, terme)
     if ultimo != "win" and ultimo != "end": # Tant que le jeu n'est pas fini il y a,
         print(ultimo)  # affichage de mon évolution de lettres dans le jeu
     return ultimo
@@ -54,13 +51,13 @@ def match_word(suite, caractere, evo, chaine):
     # la lettre proposée est-elle dans le mot?
 
     v = 0
-    if caractere in suite:
+    if caractere in suite:  # Si la lettre est dans le mot, je remplace le(s) underscore correspondant(s)
         for x in suite:
             if caractere == x:
                 evo[v] = caractere
             v += 1
     else:
-        print(bad_letter)
+        print(bad_letter)  # Si la lettre n'est pas dans le mot, je décompte d'une vie
         lifes -= 1
     print(coeurs, lifes)
     #print(evo, list(chaine))
@@ -83,7 +80,7 @@ def print_menu():
     difficulty = "Veuillez choisir votre niveau de difficulté!\n 1:Easy \n 2:Normal \n 3:Hard \n q:Quit \n"
     winner = "Bravo vous avez remporté la victoire!"
     loser = "Désolé de cet échec"
-    again = "\n Souhaitez-vous refaire une partie? (O)ui ou (N)on \n"
+    again = "\nSouhaitez-vous refaire une partie? (O)ui ou (N)on \n"
     deviner = "Veuillez entrer une première lettre\n"
     bye = "Au revoir!"
 
@@ -120,7 +117,7 @@ def print_menu():
 
     stop_or_continue = input(again)  # Demander au joueur s'il veux rejouer ou quitter
 
-    if stop_or_continue in 'oO':
+    if stop_or_continue in 'oO':  # Le jeu recommence, le nombre de vie reprend sa valeur nominale -> variable essais
         global lifes
         global essais
         lifes = essais
