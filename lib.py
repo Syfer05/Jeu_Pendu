@@ -5,9 +5,9 @@ lifes = essais  # Variable évolutive désigne le nombre de tentative restante
 def get_word(niveau):
     # Le dictionnaire(apparemment un dico doit avoir une unicité dans ses clés, du coup j'ai inversé key & value)
     dico_a = {
-        "lait": 3, "pour": 3,
-        "flamme": 2, "positif": 2,
-        "terminaison": 1, "allumette": 1
+        "lait": 3, "pour": 3, "chat": 3,
+        "flamme": 2, "positif": 2, "parfum": 2,
+        "terminaison": 1, "agriculture": 1, "allumette": 1
     }
 
     # Création d'un nouveau dictionnaire contenant uniquement des clés et valeurs,
@@ -44,6 +44,7 @@ def display(lettre, terme, evolution):
 def match_word(suite, caractere, evo, chaine):
     coeurs = "Nombre de tentatives restantes: "
     bad_letter = "-> Lettre proposée non incluse dans le mot!"
+    finish = "\n\nLe mot était bien:"
 
     global lifes
     # fonction de vérification des conditions suivantes:
@@ -65,7 +66,7 @@ def match_word(suite, caractere, evo, chaine):
     # renvoi d'une valeur "win", "lose" ou "les lettres actuellement découvertes"
     if evo == list(chaine):
         end = "win"
-        print(''.join(evo))  # affichage de liste sans ' , [ ] et espace
+        print(finish,''.join(evo))  # affichage de liste sans ' , [ ] et espace
         return end
     elif lifes == 0:
         end = "lose"
@@ -78,7 +79,7 @@ def match_word(suite, caractere, evo, chaine):
 def print_menu():
     welcome_message = "---Bienvenue sur le Jeu du pendu!---"
     difficulty = "Veuillez choisir votre niveau de difficulté!\n 1:Easy \n 2:Normal \n 3:Hard \n q:Quit \n"
-    winner = "Bravo vous avez remporté la victoire!"
+    winner = "!!!Bravo vous avez remporté la victoire!!!"
     loser = "Désolé de cet échec"
     again = "\nSouhaitez-vous refaire une partie? (O)ui ou (N)on \n"
     deviner = "Veuillez entrer une première lettre\n"
