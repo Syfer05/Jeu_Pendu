@@ -1,5 +1,6 @@
 import random
 def get_word(niveau):
+    # Le dictionnaire(apperemment un dico doit avoir une unicité dans ses clés, du coup j'ai inversé key & value)
     dico = {
         "lait": 1,
         "pour": 1,
@@ -8,12 +9,14 @@ def get_word(niveau):
         "terminaison": 3,
         "allumette": 3
     }
+    # Création d'un nouveau dictionnaire contenant uniquement des clés et valeurs,
+    # pour lesquelles la valeur est égale au niveau choisi par le joueur
     d = {}
     for key, value in dico.items():
         if value == int(niveau):
             d[key] = value
     #print(d)
-    # choix du mot grace à la valeur random
+    # choix d'un mot du dico grace à la méthode random
     #print(niveau)
     #print(random.choice(list(d.keys())))
     mot = random.choice(list(d.keys()))
@@ -40,6 +43,7 @@ def display(lettre,terme):
             soluce3[v] = lettre
         v += 1
     print(soluce3)
+    # renvoi d'une valeur "win", "lose" ou "les lettres actuellement découvertes"
     if soluce3 == terme:
         end = "win"
         return end
@@ -82,11 +86,11 @@ def print_menu():
         letter = input("Entre ta lettre\n")
         fin = display(letter,word)
         print(fin)
-        if fin == "win":
+        """if fin == "win":
             print("Bravo")
         elif fin == "lose":
             print("loser")
-        else:
+        else:"""
             ######A finir fin = display(letter, word)
     else:
         print("No Game!")
