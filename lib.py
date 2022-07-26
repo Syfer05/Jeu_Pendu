@@ -46,6 +46,7 @@ def match_word(suite, caractere, evo, chaine):
     #fonction de vérification des conditions suivantes:
     # nombre de tentatives restantes
     # la lettre proposée est-elle dans le mot?
+    bad_letter="Lettre proposée non incluse dans le mot!"
     v = 0
     if caractere in suite:
         for x in suite:
@@ -54,7 +55,7 @@ def match_word(suite, caractere, evo, chaine):
                 evo[v] = caractere
             v += 1
     else:
-        print("Lettre proposée non incluse dans le mot!")
+        print(bad_letter)
         lifes -= 1
     print(lifes)
     print(evo, list(chaine))
@@ -71,13 +72,14 @@ def match_word(suite, caractere, evo, chaine):
 
 
 def print_menu():
-    welcome_message = "Bienvenue sur le jeu du pendu!"
+    welcome_message = "---Bienvenue sur le Jeu du pendu!---"
     difficulty = "Veuillez choisir votre niveau de difficulté!\n 1:Easy \n 2:Normal \n 3:Hard \n q:Quit \n"
-    win = "Bravo vous avez remporté la victoire et découvert le mot x en x tentatives"
-    fail = "Désolé de cet échec, le mot à découvrir était : x"
+    winner = "Bravo vous avez remporté la victoire et découvert le mot x en x tentatives"
+    loser = "Désolé de cet échec, le mot à découvrir était : x"
     again = "Souhaitez-vous refaire une partie? (O)ui ou (N)on \n"
-    deviner = "Veuillez entrer une lettre"
-    lettre = ""
+    deviner = "Veuillez entrer une première lettre\n"
+    bye = "Au revoir!"
+
     print(welcome_message)
     level = input(difficulty) # Demander au joueur de choisir le level de difficulté
 
@@ -85,23 +87,22 @@ def print_menu():
     ### Appel de la Function -> get_word()
     if level not in 'qQ':
         fin = ""
-        ###word=get_word(level) # Appel de la fonction get_word avec paramétre level
+        ### Appel de la fonction get_word avec paramétre level
         word = get_word(level)
-        print("Le mot c'est:", word)
+        #print("Le mot c'est:", word)
         ### Appel de la Function -> display()
-        letter = input("Entre ta lettre:\n")
+        letter = input(deviner)
         fin = display(letter, word, fin)
         print(fin)
 
         while not (fin == "win") and not (fin == "lose"):
             fin = display(letter, word, fin)
         if fin == "win":
-            print("Bravo")
+            print(winner)
         elif fin == "lose":
-            print("loser")
-            ######A finir fin = display(letter, word)
+            print(loser)
     else:
-        print("No Game!")
+        print(bye)
         exit()
 
 
@@ -113,5 +114,5 @@ def print_menu():
         lifes = essais
         print_menu()
     elif stop_or_continue in 'nN':
-        print("Adieu")
+        print(bye)
         exit()# Sortie du programme
