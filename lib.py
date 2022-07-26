@@ -39,33 +39,36 @@ def display(lettre,terme,evolution):
         soluce3 = list(evolution)
         lettre = input("Entre ta lettre\n")
 
-    v = 0
-    for x in liste:
+    ultimo= match_word(liste,lettre,soluce3,terme)
+    print(ultimo)
+    return ultimo
 
-        if lettre == x:
+
+def match_word(suite, caractere, evo, chaine):
+    #fonction de vérification des conditions suivantes:
+    # nombre de tentatives restantes
+    # la lettre proposée est-elle dans le mot?
+    tour=10
+    v = 0
+    for x in suite:
+
+        if caractere == x:
             print(v)
-            soluce3[v] = lettre
+            evo[v] = caractere
         v += 1
-    print(soluce3, list(terme))
+    print(evo, list(chaine))
     # renvoi d'une valeur "win", "lose" ou "les lettres actuellement découvertes"
-    if soluce3 == list(terme):
+    if evo == list(chaine):
         end = "win"
         return end
     elif tour == 0:
         end = "lose"
         return end
     else:
-        end = ''.join(soluce3)
+        end = ''.join(evo)
         return end
 
 
-"""
-def match_word(letter, word):
-    {
-
-    }
-
-"""
 def print_menu():
     word=""
     fin=""
