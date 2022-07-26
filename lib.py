@@ -23,7 +23,7 @@ def get_word(niveau):
     return mot
 
 
-def display(lettre,terme):
+def display(lettre,terme,evolution):
     end = ""
     tour = ""
     longueur = len(terme)
@@ -31,9 +31,13 @@ def display(lettre,terme):
     liste = list(terme)
     soluce3 = []
 
-    for x in range(longueur):
-        soluce3.append("_")
-    print(soluce3)
+    if evolution == "":
+        for x in range(longueur):
+            soluce3.append("_")
+        print(soluce3)
+    else:
+        soluce3 = list(evolution)
+        lettre = input("Entre ta lettre\n")
 
     v = 0
     for x in liste:
@@ -42,9 +46,9 @@ def display(lettre,terme):
             print(v)
             soluce3[v] = lettre
         v += 1
-    print(soluce3)
+    print(soluce3, list(terme))
     # renvoi d'une valeur "win", "lose" ou "les lettres actuellement découvertes"
-    if soluce3 == terme:
+    if soluce3 == list(terme):
         end = "win"
         return end
     elif tour == 0:
@@ -56,7 +60,7 @@ def display(lettre,terme):
 
 
 """
-def dico(letter, word):
+def match_word(letter, word):
     {
 
     }
@@ -79,18 +83,28 @@ def print_menu():
 
     ### Appel de la Function -> get_word()
     if level not in 'qQ':
+        fin=""
         ###word=get_word(level) # Appel de la fonction get_word avec paramétre level
         word = get_word(level)
         print("Le mot c'est:", word)
         ### Appel de la Function -> display()
         letter = input("Entre ta lettre\n")
-        fin = display(letter,word)
+        #fin = display(letter,word)
+        fin = display(letter, word, fin)
         print(fin)
         """if fin == "win":
             print("Bravo")
         elif fin == "lose":
             print("loser")
-        else:"""
+        else:
+            display(letter,word,fin)"""
+
+        while not (fin == "win") and not (fin == "lose"):
+            fin = display(letter, word, fin)
+        if fin == "win":
+            print("Bravo")
+        elif fin == "lose":
+            print("loser")
             ######A finir fin = display(letter, word)
     else:
         print("No Game!")
